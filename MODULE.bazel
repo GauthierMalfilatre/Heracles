@@ -1,0 +1,9 @@
+# Module TestyCrousty
+
+module(
+    name = "testy_crousty",
+    version = "0.0.1"
+)
+
+# Dependency - cc_binary
+bazel_dep(name = "rules_cc", version = "0.2.17")

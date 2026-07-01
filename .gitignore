@@ -1,0 +1,13 @@
+# IDE Folders
+.vscode/
+.idea/
+
+# Bazel
+bazel*
+*.bazel.lock
+
+# Build
+a.out
+
+# JSON
+compile_commands.json
