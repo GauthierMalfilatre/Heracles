@@ -8,28 +8,30 @@
     #define __HERACLES_H
     #include <assert.h>
     #include <stddef.h>
-    #include <stdio.h>
+    #include <stdlib.h>
 
     #define hcRed "\033[31m"
     #define hcGreen "\033[32m"
     #define hcYellow "\033[33m"
     #define hcNormal "\033[0m"
 
-    #define hcError(msg) printf(hcRed"ERROR"hcNormal": %s (%s:%d)\n", msg, __FILE__, __LINE__)
+    #define hcError(msg, ...) printf(hcRed"ERROR"hcNormal": "msg, ##__VA_ARGS__)
+    #define hcInfo(msg, ...) printf(hcYellow"INFO"hcNormal": "msg, ##__VA_ARGS__)
+    #define hcGood(msg, ...) printf(hcGreen"GOOD"hcNormal": "msg, ##__VA_ARGS__)
 
-    #define Assert(condition, msg) \
+    #define Assert(condition, msg, ...) \
     do { \
         if (!(condition)) { \
-            hcError("Failed :("); \
-            return; \
+            hcError("Failed at %s:%d: "msg"\n", __FILE__, __LINE__, ##__VA_ARGS__); \
+            exit(1); \
         } \
     } while(0)
 
-    #define AssertEq(a, b, msg) Assert(a == b, msg)
-    #define AssertNe(a, b, msg) Assert(a != b, msg)
-    #define AssertLe(a, b, msg) Assert(a <= b, msg)
-    #define AssertGe(a, b, msg) Assert(a >= b, msg)
-    #define AssertExists(ptr, msg) Assert(ptr != NULL, msg)
+    #define AssertEq(a, b, msg, ...) Assert(a == b, msg, ##__VA_ARGS__)
+    #define AssertNe(a, b, msg, ...) Assert(a != b, msg, ##__VA_ARGS__)
+    #define AssertLe(a, b, msg, ...) Assert(a <= b, msg, ##__VA_ARGS__)
+    #define AssertGe(a, b, msg, ...) Assert(a >= b, msg, ##__VA_ARGS__)
+    #define AssertExists(ptr, msg, ...) Assert(ptr != NULL, msg, ##__VA_ARGS__)
 
     typedef void (*__hc_testFunc)(void);
 
