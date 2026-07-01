@@ -1,11 +1,11 @@
-#include "testy/testy.h"
+#include "heracles/heracles.h"
 
-Testy(test1, test_assert_eq)
+Test(test1, test_assert_eq)
 {
-    AssertEq(1, 1, "1 is not equal to 1\n");
+    AssertEq(1, 1, "1 is not equal to 1");
 }
 
-Testy(test1, test_assert_ne)
+Test(test1, test_assert_ne)
 {
-    AssertEq(1, 1, "1 is equal to 1\n");
+    AssertNe(1, 1, "1 is equal to 1");
 }

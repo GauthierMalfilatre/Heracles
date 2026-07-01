@@ -9,7 +9,7 @@ BUILD_COPTS = [
 
 # Add sources
 cc_library(
-    name = "testy",
+    name = "heracles",
     srcs = glob(["src/**/*.c", "src/**/*.h"], allow_empty = True),
     hdrs = glob(["include/**/*.h"]),
     includes = ["include"],
