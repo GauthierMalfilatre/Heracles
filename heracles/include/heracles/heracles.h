@@ -9,6 +9,7 @@
     #include <assert.h>
     #include <stddef.h>
     #include <stdlib.h>
+    #include <stdio.h>
 
     #define hcRed "\033[31m"
     #define hcGreen "\033[32m"
