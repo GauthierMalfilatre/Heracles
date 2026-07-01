@@ -1,5 +1,6 @@
 #include "heracles/heracles.h"
 #include <stdio.h>
+#include <unistd.h>
 
 Test(test1, test_assert_eq)
 {
@@ -21,5 +22,5 @@ Test(test_segv, segv)
 
 Test(test_segv, segv2)
 {
-    // AssertExists(*(NULL), "Wait ??");
+    AssertExists(NULL, "Wait ??");
 }

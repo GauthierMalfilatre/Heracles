@@ -75,7 +75,7 @@ int main(void)
     while (current < end) {
         if (!csuite || strncmp(current->suite, csuite, 32)) {
             if (csuite) {
-                printf("\n\n");
+                printf("\n");
             }
             printf("========= %.32s =========\n\n", current->suite);
         }
@@ -86,7 +86,7 @@ int main(void)
         ++results[0];
         ++current;
     }
-    printf("========= REPORT =========\n\n");
+    printf("\n========= REPORT =========\n\n");
     printf("Test runs successfully : %zu / %zu\n", results[1], results[0]);
     printf("Took %zu ms\n", monotonic() - start);
     return 0;
