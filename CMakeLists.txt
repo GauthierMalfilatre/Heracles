@@ -6,14 +6,14 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
 endif()
 
 file(GLOB_RECURSE heracles_SOURCES 
-    "${CMAKE_CURRENT_SOURCE_DIR}/heracles/src/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
 )
 
 add_library(heracles-obj ${heracles_SOURCES})
 
 target_include_directories(heracles-obj
     PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/heracles/include>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
 
@@ -53,4 +53,15 @@ set_target_properties(heracles-shared PROPERTIES
 
 set_target_properties(heracles-obj PROPERTIES
     POSITION_INDEPENDENT_CODE ON
+)
+
+include(GNUInstallDirs)
+
+install(TARGETS heracles-static heracles-shared
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/heracles
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
