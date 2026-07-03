@@ -8,8 +8,9 @@
     #define __HERACLES_H
     #include <assert.h>
     #include <stddef.h>
-    #include <stdlib.h>
+    #include <string.h>
     #include <stdio.h>
+    #include <stdlib.h>
 
     #define hcRed "\033[31m"
     #define hcGreen "\033[32m"
@@ -32,8 +33,10 @@
     #define AssertNe(a, b, msg, ...) Assert(a != b, msg, ##__VA_ARGS__)
     #define AssertLe(a, b, msg, ...) Assert(a <= b, msg, ##__VA_ARGS__)
     #define AssertGe(a, b, msg, ...) Assert(a >= b, msg, ##__VA_ARGS__)
-    #define AssertNull(ptr, msg, ...) Assert(ptr != NULL, msg, ##__VA_ARGS__)
-    #define AssertNotNull(ptr, msg, ...) Assert(ptr == NULL, msg, ##__VA_ARGS__)
+    #define AssertNull(ptr, msg, ...) Assert(ptr == NULL, msg, ##__VA_ARGS__)
+    #define AssertNotNull(ptr, msg, ...) Assert(ptr != NULL, msg, ##__VA_ARGS__)
+    #define AssertStrEq(str1, str2, msg, ...) AssertEq(strcmp(str1, str2), 0, msg, ##__VA_ARGS__)
+    #define AssertStrNe(str1, str2, msg, ...) AssertNe(strcmp(str1, str2), 0, msg, ##__VA_ARGS__)
 
     typedef void (*__hc_testFunc)(void);
 

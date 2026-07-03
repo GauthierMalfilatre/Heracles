@@ -24,3 +24,11 @@ Test(test_segv, segv2)
 {
     AssertNull(NULL, "Wait ??");
 }
+
+Test(test_str, good_1)
+{
+    char *str = "caca";
+    char *str2 = "caca";
+
+    AssertStrEq(str, str2, "%s != %s", str, str2);
+}
