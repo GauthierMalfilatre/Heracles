@@ -22,5 +22,5 @@ Test(test_segv, segv)
 
 Test(test_segv, segv2)
 {
-    AssertExists(NULL, "Wait ??");
+    AssertNull(NULL, "Wait ??");
 }

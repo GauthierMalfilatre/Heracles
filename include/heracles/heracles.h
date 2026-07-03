@@ -32,7 +32,8 @@
     #define AssertNe(a, b, msg, ...) Assert(a != b, msg, ##__VA_ARGS__)
     #define AssertLe(a, b, msg, ...) Assert(a <= b, msg, ##__VA_ARGS__)
     #define AssertGe(a, b, msg, ...) Assert(a >= b, msg, ##__VA_ARGS__)
-    #define AssertExists(ptr, msg, ...) Assert(ptr != NULL, msg, ##__VA_ARGS__)
+    #define AssertNull(ptr, msg, ...) Assert(ptr != NULL, msg, ##__VA_ARGS__)
+    #define AssertNotNull(ptr, msg, ...) Assert(ptr == NULL, msg, ##__VA_ARGS__)
 
     typedef void (*__hc_testFunc)(void);
 
