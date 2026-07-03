@@ -44,7 +44,7 @@
 
     #define Test(suite, name) \
         void suite##_##name##_impl(void); \
-        __attribute__((section("__hc_funcStruct"), aligned(8))) \
+        __attribute__((section("__hc_funcStruct"), aligned(8), used, retain)) \
         static const struct __hc_funcStruct suite##_##name##_meta = { \
             #suite, #name, &suite##_##name##_impl \
         }; \
