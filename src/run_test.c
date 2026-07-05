@@ -1,5 +1,6 @@
 #include "private.h"
 #include <heracles/heracles.h>
+#include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -9,6 +10,7 @@ void run_test(
 )
 {
     int pid = fork();
+    timestamp now = hc_monotonic();
     int wstatus;
 
     if (pid == -1) {
@@ -38,7 +40,7 @@ void run_test(
         }  else if (WIFEXITED(wstatus)) {
             int sign = WEXITSTATUS(wstatus);
             if (sign == 0) {
-                hcGood("Test %s:%s runned successfully\n", current->suite, current->name);
+                hcGood("Test %s:%s runned successfully. Took %zu ms.\n", current->suite, current->name, hc_monotonic() - now);
                 ++results[1];
             } else {
                 ++results[2];
