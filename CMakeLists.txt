@@ -1,67 +1,67 @@
 cmake_minimum_required(VERSION 3.5)
-project(heracles LANGUAGES C)
+project(kronklab LANGUAGES C)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
     message(FATAL_ERROR "Les builds dans le dossier source sont interdits. Créez un dossier build/.")
 endif()
 
-file(GLOB_RECURSE heracles_SOURCES 
+file(GLOB_RECURSE kronklab_SOURCES 
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
 )
 
-add_library(heracles-obj ${heracles_SOURCES})
+add_library(kronklab-obj ${kronklab_SOURCES})
 
-target_include_directories(heracles-obj
+target_include_directories(kronklab-obj
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
 
-target_compile_options(heracles-obj PRIVATE
+target_compile_options(kronklab-obj PRIVATE
     -Wall
     -Wextra
     -O3
 )
 
-add_library(heracles-static STATIC
-    $<TARGET_OBJECTS:heracles-obj>
+add_library(kronklab-static STATIC
+    $<TARGET_OBJECTS:kronklab-obj>
 )
 
-target_link_libraries(heracles-static
+target_link_libraries(kronklab-static
     PUBLIC
-        heracles-obj
+        kronklab-obj
 )
 
-add_library(heracles-shared SHARED
-    $<TARGET_OBJECTS:heracles-obj>
+add_library(kronklab-shared SHARED
+    $<TARGET_OBJECTS:kronklab-obj>
 )
 
-target_link_libraries(heracles-shared
+target_link_libraries(kronklab-shared
     PUBLIC
-        heracles-obj
+        kronklab-obj
 )
 
-add_library(heracles ALIAS heracles-static)
+add_library(kronklab ALIAS kronklab-static)
 
-set_target_properties(heracles-static PROPERTIES
-    OUTPUT_NAME heracles
+set_target_properties(kronklab-static PROPERTIES
+    OUTPUT_NAME kronklab
 )
 
-set_target_properties(heracles-shared PROPERTIES
-    OUTPUT_NAME heracles
+set_target_properties(kronklab-shared PROPERTIES
+    OUTPUT_NAME kronklab
 )
 
-set_target_properties(heracles-obj PROPERTIES
+set_target_properties(kronklab-obj PROPERTIES
     POSITION_INDEPENDENT_CODE ON
 )
 
 include(GNUInstallDirs)
 
-install(TARGETS heracles-static heracles-shared
+install(TARGETS kronklab-static kronklab-shared
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/heracles
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/kronklab
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )

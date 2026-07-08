@@ -4,27 +4,27 @@
 ** File description:
 ** Single-Header test framework
 */
-#ifndef __HERACLES_H
-    #define __HERACLES_H
+#ifndef __kronklab_H
+    #define __kronklab_H
     #include <assert.h>
     #include <stddef.h>
     #include <string.h>
     #include <stdio.h>
     #include <stdlib.h>
 
-    #define hcRed "\033[31m"
-    #define hcGreen "\033[32m"
-    #define hcYellow "\033[33m"
-    #define hcNormal "\033[0m"
+    #define klRed "\033[31m"
+    #define klGreen "\033[32m"
+    #define klYellow "\033[33m"
+    #define klNormal "\033[0m"
 
-    #define hcError(msg, ...) printf(hcRed"ERROR"hcNormal": "msg, ##__VA_ARGS__)
-    #define hcInfo(msg, ...) printf(hcYellow"INFO"hcNormal": "msg, ##__VA_ARGS__)
-    #define hcGood(msg, ...) printf(hcGreen"GOOD"hcNormal": "msg, ##__VA_ARGS__)
+    #define klError(msg, ...) printf(klRed"ERROR"klNormal": "msg, ##__VA_ARGS__)
+    #define klInfo(msg, ...) printf(klYellow"INFO"klNormal": "msg, ##__VA_ARGS__)
+    #define klGood(msg, ...) printf(klGreen"GOOD"klNormal": "msg, ##__VA_ARGS__)
 
     #define Assert(condition, msg, ...) \
     do { \
         if (!(condition)) { \
-            hcError("Failed at %s:%d: "msg"\n", __FILE__, __LINE__, ##__VA_ARGS__); \
+            klError("Failed at %s:%d: "msg"\n", __FILE__, __LINE__, ##__VA_ARGS__); \
             exit(1); \
         } \
     } while(0)
@@ -38,23 +38,23 @@
     #define AssertStrEq(str1, str2, msg, ...) AssertEq(strcmp(str1, str2), 0, msg, ##__VA_ARGS__)
     #define AssertStrNe(str1, str2, msg, ...) AssertNe(strcmp(str1, str2), 0, msg, ##__VA_ARGS__)
 
-    typedef void (*__hc_testFunc)(void);
+    typedef void (*__kl_testFunc)(void);
 
-    struct __hc_funcStruct {
+    struct __kl_funcStruct {
         char suite[32];
         char name[32];
-        __hc_testFunc func;
+        __kl_testFunc func;
     };
 
     #define Test(suite, name) \
         void suite##_##name##_impl(void); \
-        __attribute__((section("__hc_funcStruct"), aligned(8), used, retain)) \
-        static const struct __hc_funcStruct suite##_##name##_meta = { \
+        __attribute__((section("__kl_funcStruct"), aligned(8), used, retain)) \
+        static const struct __kl_funcStruct suite##_##name##_meta = { \
             #suite, #name, &suite##_##name##_impl \
         }; \
         void suite##_##name##_impl(void)
 
-    extern struct __hc_funcStruct __start___hc_funcStruct;
-    extern struct __hc_funcStruct __stop___hc_funcStruct;
+    extern struct __kl_funcStruct __start___kl_funcStruct;
+    extern struct __kl_funcStruct __stop___kl_funcStruct;
 
-#endif /* __HERACLES_H */
+#endif /* __kronklab_H */

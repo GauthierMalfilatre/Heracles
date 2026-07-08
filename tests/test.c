@@ -1,4 +1,4 @@
-#include "heracles/heracles.h"
+#include "kronklab/kronklab.h"
 #include <stdio.h>
 #include <unistd.h>
 

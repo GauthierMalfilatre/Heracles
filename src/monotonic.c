@@ -1,7 +1,7 @@
 #include "private.h"
 #include <time.h>
 
-inline timestamp hc_monotonic(void)
+inline timestamp kl_monotonic(void)
 {
     struct timespec ts;
 
