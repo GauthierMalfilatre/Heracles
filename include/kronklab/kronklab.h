@@ -17,14 +17,14 @@
     #define klYellow "\033[33m"
     #define klNormal "\033[0m"
 
-    #define klError(msg, ...) printf(klRed"ERROR"klNormal": "msg, ##__VA_ARGS__)
-    #define klInfo(msg, ...) printf(klYellow"INFO"klNormal": "msg, ##__VA_ARGS__)
-    #define klGood(msg, ...) printf(klGreen"GOOD"klNormal": "msg, ##__VA_ARGS__)
+    #define klError(msg, ...) printf(klRed "ERROR" klNormal ": " msg, ##__VA_ARGS__)
+    #define klInfo(msg, ...) printf(klYellow "INFO" klNormal ": " msg, ##__VA_ARGS__)
+    #define klGood(msg, ...) printf(klGreen "GOOD" klNormal ": " msg, ##__VA_ARGS__)
 
     #define Assert(condition, msg, ...) \
     do { \
         if (!(condition)) { \
-            klError("Failed at %s:%d: "msg"\n", __FILE__, __LINE__, ##__VA_ARGS__); \
+            klError("Failed at %s:%d: " msg "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
             exit(1); \
         } \
     } while(0)
