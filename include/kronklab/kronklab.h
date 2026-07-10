@@ -72,10 +72,15 @@
     extern struct __kl_funcStruct __start___kl_funcStruct;
     extern struct __kl_funcStruct __stop___kl_funcStruct;
 
+    typedef uint64_t timestamp;
+
+    timestamp kl_monotonic(void);
+    timestamp kl_high_monotonic(void);
+
     #define BenchStart() \
-        uint64_t __kl_now_start = kl_high_monotonic();
+        timestamp __kl_now_start = kl_high_monotonic();
     #define BenchEnd() \
-        uint64_t __kl_now_end = kl_high_monotonic() - __kl_now_start;
+        timestamp __kl_now_end = kl_high_monotonic() - __kl_now_start;
     #define BenchSeconds() __kl_now_end / 1000000
     #define BenchMilliSeconds() __kl_now_end / 1000
     #define BenchMicroSeconds() __kl_now_end

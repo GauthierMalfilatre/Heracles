@@ -7,11 +7,6 @@
     #define kl_FAILED 2
     #define kl_CRASHED 3 
 
-typedef uint64_t timestamp;
-
-timestamp kl_monotonic(void);
-timestamp kl_high_monotonic(void);
-
 void run_test(struct __kl_funcStruct *current, unsigned long *results);
 void run_bench(struct __kl_funcStruct *current, unsigned long *results);
 
