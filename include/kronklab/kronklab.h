@@ -11,6 +11,7 @@
     #include <string.h>
     #include <stdio.h>
     #include <stdlib.h>
+    #include <stdint.h>
 
     #define klRed "\033[31m"
     #define klGreen "\033[32m"
@@ -40,9 +41,15 @@
 
     typedef void (*__kl_testFunc)(void);
 
+    enum __kl_testType {
+        __kl_test,
+        __kl_bench
+    };
+
     struct __kl_funcStruct {
         char suite[32];
         char name[32];
+        enum __kl_testType type;
         __kl_testFunc func;
     };
 
@@ -50,11 +57,28 @@
         void suite##_##name##_impl(void); \
         __attribute__((section("__kl_funcStruct"), aligned(8), used, retain)) \
         static const struct __kl_funcStruct suite##_##name##_meta = { \
-            #suite, #name, &suite##_##name##_impl \
+            #suite, #name, __kl_test, &suite##_##name##_impl \
+        }; \
+        void suite##_##name##_impl(void)
+
+    #define Bench(suite, name) \
+        void suite##_##name##_impl(void); \
+        __attribute__((section("__kl_funcStruct"), aligned(8), used, retain)) \
+        static const struct __kl_funcStruct suite##_##name##_meta = { \
+            #suite, #name, __kl_bench, &suite##_##name##_impl \
         }; \
         void suite##_##name##_impl(void)
 
     extern struct __kl_funcStruct __start___kl_funcStruct;
     extern struct __kl_funcStruct __stop___kl_funcStruct;
+
+    #define BenchStart() \
+        uint64_t __kl_now_start = kl_high_monotonic();
+    #define BenchEnd() \
+        uint64_t __kl_now_end = kl_high_monotonic() - __kl_now_start;
+    #define BenchSeconds() __kl_now_end / 1000000
+    #define BenchMilliSeconds() __kl_now_end / 1000
+    #define BenchMicroSeconds() __kl_now_end
+    #define BenchReport() klGood("-- %zu us elapsed\n", BenchMilliSeconds());
 
 #endif /* __kronklab_H */

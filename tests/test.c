@@ -1,4 +1,5 @@
 #include "kronklab/kronklab.h"
+#include <stddef.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -27,8 +28,25 @@ Test(test_segv, segv2)
 
 Test(test_str, good_1)
 {
-    char *str = "caca";
-    char *str2 = "caca";
+    char str[] = "caca";
+    char str2[] = "caca";
 
     AssertStrEq(str, str2, "%s != %s", str, str2);
+}
+
+Bench(test_bench, t1)
+{
+    for (size_t i = 0; i < 10000000 ; ++i) {
+        ;
+    }
+}
+
+Bench(test_bench, t2)
+{
+    BenchStart();
+    for (size_t i = 0; i < 10000000 ; ++i) {
+        ;
+    }
+    BenchEnd();
+    BenchReport();
 }
